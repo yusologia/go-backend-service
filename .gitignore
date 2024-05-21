@@ -1,4 +1,6 @@
-.idea
+/.fleet
+/.idea
+/.vscode
 .env
-main-go
-scheduler-go
+.env.ops
+application
