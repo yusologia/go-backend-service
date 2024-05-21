@@ -1,13 +1,13 @@
 package Handler
 
 import (
-	"github.com/yusologia/go-core/response"
+	logiares "github.com/yusologia/go-response"
 	"net/http"
 )
 
 type Handler struct{}
 
 func (hand Handler) Index(w http.ResponseWriter, r *http.Request) {
-	res := response.Response{}
+	res := logiares.Response{}
 	res.Success(w)
 }

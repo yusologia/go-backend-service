@@ -29,3 +29,13 @@ func Truncate(db *gorm.DB, tables ...schema.Tabler) {
 		}
 	}
 }
+
+func QueryPreloads(query *gorm.DB, preloads ...string) *gorm.DB {
+	if len(preloads) > 0 {
+		for _, preload := range preloads {
+			query = query.Preload(preload)
+		}
+	}
+
+	return query
+}

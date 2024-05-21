@@ -1,19 +1,13 @@
 package Repository
 
 import (
+	logiares "github.com/yusologia/go-response"
 	"gorm.io/gorm"
 	"net/url"
 	"strconv"
 )
 
-type Pagination struct {
-	Count       int
-	CurrentPage any
-	PerPage     int
-	TotalPage   int
-}
-
-func Paginate(parameters url.Values, query *gorm.DB, model interface{}) (*gorm.DB, Pagination) {
+func Paginate(parameters url.Values, query *gorm.DB, model interface{}) (*gorm.DB, logiares.Pagination) {
 	var count int64
 	query.Model(&model).Count(&count)
 
@@ -26,21 +20,20 @@ func Paginate(parameters url.Values, query *gorm.DB, model interface{}) (*gorm.D
 	offset := (page - 1) * limit
 	query = query.Limit(limit).Offset(offset)
 
-	dataPagination := Pagination{
+	dataPagination := logiares.Pagination{
 		Count:       int(count),
 		PerPage:     limit,
 		CurrentPage: page,
 		TotalPage:   (int(count) / limit) + 1,
 	}
 
-	return query, dataPagination
-}
-
-func (p Pagination) ParsePagination() map[string]interface{} {
-	return map[string]interface{}{
-		"count":       p.Count,
-		"currentPage": p.CurrentPage,
-		"perPage":     p.PerPage,
-		"totalPage":   p.TotalPage,
+	if page < dataPagination.TotalPage {
+		dataPagination.NextPage = page + 1
 	}
+
+	if page > 1 {
+		dataPagination.PrevPage = page - 1
+	}
+
+	return query, dataPagination
 }

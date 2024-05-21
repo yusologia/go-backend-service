@@ -1,7 +1,7 @@
 package Parser
 
-func IDNameParser(id uint, name string) map[string]interface{} {
-	if id == 0 {
+func IDNameParser(id any, name string) map[string]interface{} {
+	if id == 0 || id == "" {
 		return nil
 	}
 
