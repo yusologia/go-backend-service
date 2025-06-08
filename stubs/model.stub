@@ -1,0 +1,15 @@
+package model
+
+import "github.com/yusologia/go-core/v2/model"
+
+type {{.ModelStruct}} struct {
+	logiamodel.BaseModelUUID
+}
+
+func ({{.ModelStruct}}) TableName() string {
+	return "{{.TableName}}"
+}
+
+func (md *{{.ModelStruct}}) SetReference() uint {
+	return md.ID
+}

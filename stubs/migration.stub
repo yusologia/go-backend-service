@@ -1,0 +1,19 @@
+package migration
+
+import (
+	"github.com/yusologia/go-core/v2/database"
+)
+
+type {{.MigrationStruct}} struct{}
+
+func ({{.MigrationStruct}}) Reference() string {
+	return "{{.MigrationStruct}}"
+}
+
+func ({{.MigrationStruct}}) Tables() []logiadb.Table {
+	return []logiadb.Table{}
+}
+
+func ({{.MigrationStruct}}) Columns() []logiadb.Column {
+	return []logiadb.Column{}
+}
